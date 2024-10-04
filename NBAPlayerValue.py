@@ -84,9 +84,6 @@ def main():
     ######################################################################
     team_box_score_data = pd.read_excel("NBAPlayerValueData.xlsx",
                                         "TeamBoxScores")
-    # make sure all data is numeric
-    team_box_score_data = team_box_score_data.apply(pd.to_numeric,
-                                                    errors="coerce")
     with game_value_cols[1]:
         with st.expander("Team Box Score Data"):
             st.dataframe(team_box_score_data)
@@ -95,6 +92,10 @@ def main():
     # that we want to test
     dependent_data = team_box_score_data[[gv.DEPENDENT_BOX_COL]]
     independent_data = team_box_score_data[gv.INDEPENDENT_BOX_COLS]
+    # make sure data is numeric
+    dependent_data = dependent_data.apply(pd.to_numeric)
+    independent_data = independent_data.apply(pd.to_numeric)
+
     # we want to keep the intercept, coefficient, p-value and r-squared
     results = {}
     for col in independent_data.columns:
