@@ -100,7 +100,7 @@ def main():
 
     # narrow down the data to just the point differential and the columns
     # that we want to test
-    dependent_data = team_box_score_data[[gv.DEPENDENT_BOX_COL]]
+    dependent_data = team_box_score_data[gv.DEPENDENT_BOX_COL]
     independent_data = team_box_score_data[gv.INDEPENDENT_BOX_COLS]
     # make sure data is numeric
     dependent_data = pd.to_numeric(dependent_data)
