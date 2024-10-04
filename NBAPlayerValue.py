@@ -86,6 +86,10 @@ def main():
     ######################################################################
     team_box_score_data = pd.read_excel("NBAPlayerValueData.xlsx",
                                         "TeamBoxScores")
+    with game_value_cols[1]:
+        with st.expander("Team Box Score Data"):
+            st.dataframe(team_box_score_data)
+
     # rename columns to replace % with _P and / with _ and any other
     # specifics
     team_box_score_data.columns = [
@@ -94,9 +98,6 @@ def main():
         for col in team_box_score_data.columns]
     team_box_score_data.columns = [col.replace("%", "_P").replace("/", "_")
                                    for col in team_box_score_data.columns]
-    with game_value_cols[1]:
-        with st.expander("Team Box Score Data"):
-            st.dataframe(team_box_score_data)
 
     # narrow down the data to just the point differential and the columns
     # that we want to test
@@ -104,20 +105,16 @@ def main():
     independent_data = team_box_score_data[gv.INDEPENDENT_BOX_COLS]
     # make sure data is numeric
     dependent_data = pd.to_numeric(dependent_data)
-    st.write(dependent_data)
     for col in independent_data.columns:
         # replace any dash with zero
         independent_data[col] = independent_data[col].replace("-", 0)
         independent_data[col] = pd.to_numeric(independent_data[col])
-        st.write(independent_data[col])
 
     # we want to keep the intercept, coefficient, p-value and r-squared
     results = {}
     for col in independent_data.columns:
         # add a constant
         X = sm.add_constant(independent_data[col])
-        st.write(dependent_data)
-        st.write(X)
         model = sm.OLS(dependent_data, X).fit()
         # use a robust covariance matrix
         model = model.get_robustcov_results()
