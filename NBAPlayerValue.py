@@ -1,6 +1,10 @@
 import pandas as pd
 import streamlit as st
 
+import GlobalVariables as gv
+
+from statsmodels import api as sm
+
 
 def main():
     st.set_page_config(page_title="NBA Player Value", layout="wide")
@@ -30,7 +34,7 @@ def main():
                  "\n\n")
 
     ######################################################################
-    # Team Stats
+    # Team Stats - Intro
     ######################################################################
     st.subheader("Game Value")
     game_value_cols = st.columns([.05, .95])
@@ -75,11 +79,38 @@ def main():
                      "benched all season, but we can't know their true value "
                      "from this data exercise since we rely on their stats.")
 
+    ######################################################################
+    # Team Stats - Analysis
+    ######################################################################
     team_box_score_data = pd.read_excel("NBAPlayerValueData.xlsx",
                                         "TeamBoxScores")
     with game_value_cols[1]:
         with st.expander("Team Box Score Data"):
             st.dataframe(team_box_score_data)
+
+    # narrow down the data to just the point differential and the columns
+    # that we want to test
+    dependent_data = team_box_score_data[[gv.DEPENDENT_BOX_COL]]
+    independent_data = team_box_score_data[[gv.INDEPENDENT_BOX_COLS]]
+    # we want to keep the intercept, coefficient, p-value and r-squared
+    results = {}
+    for col in independent_data.columns:
+        # add a constant
+        X = sm.add_constant(independent_data[col])
+        model = sm.OLS(dependent_data, X).fit()
+        # use a robust covariance matrix
+        model = model.get_robustcov_results()
+        results[col] = {
+            "intercept": model.params[0],
+            "coefficient": model.params[1],
+            "p-value": model.pvalues[1],
+            "r-squared": model.rsquared
+        }
+
+    results_df = pd.DataFrame(results).T
+    with game_value_cols[1]:
+        st.dataframe(results_df)
+
 
 
 if __name__ == '__main__':
