@@ -106,6 +106,8 @@ def main():
     dependent_data = pd.to_numeric(dependent_data)
     st.write(dependent_data)
     for col in independent_data.columns:
+        # replace any dash with zero
+        independent_data[col] = independent_data[col].replace("-", 0)
         independent_data[col] = pd.to_numeric(independent_data[col])
         st.write(independent_data[col])
 
