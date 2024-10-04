@@ -91,7 +91,7 @@ def main():
     # narrow down the data to just the point differential and the columns
     # that we want to test
     dependent_data = team_box_score_data[[gv.DEPENDENT_BOX_COL]]
-    independent_data = team_box_score_data[[gv.INDEPENDENT_BOX_COLS]]
+    independent_data = team_box_score_data[gv.INDEPENDENT_BOX_COLS]
     # we want to keep the intercept, coefficient, p-value and r-squared
     results = {}
     for col in independent_data.columns:
