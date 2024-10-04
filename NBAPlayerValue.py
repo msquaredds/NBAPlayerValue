@@ -104,7 +104,9 @@ def main():
     independent_data = team_box_score_data[gv.INDEPENDENT_BOX_COLS]
     # make sure data is numeric
     dependent_data = dependent_data.apply(pd.to_numeric)
-    independent_data = independent_data.apply(pd.to_numeric)
+    st.write(dependent_data)
+    for col in independent_data.columns:
+        independent_data[col] = independent_data[col].apply(pd.to_numeric)
 
     # we want to keep the intercept, coefficient, p-value and r-squared
     results = {}
