@@ -17,7 +17,7 @@ def main():
     # Overview
     ######################################################################
     st.subheader("Overview")
-    overview_cols = st.columns([.1, .9])
+    overview_cols = st.columns([.05, .95])
     with overview_cols[1]:
         st.write("This page investigates NBA player value through two lenses, "
                  "using statistical methods: "
@@ -33,7 +33,7 @@ def main():
     # Team Stats
     ######################################################################
     st.subheader("Game Value")
-    game_value_cols = st.columns([.1, .9])
+    game_value_cols = st.columns([.05, .95])
     with game_value_cols[1]:
         st.write("To determine Game Value, we ultimately want to know how "
                  "likely a player is to help their team win. This could be "

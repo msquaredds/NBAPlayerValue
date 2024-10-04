@@ -3,8 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.12 (NBAPlayerValue)" />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="6b0690d9-861e-4a9d-af2e-3d32008c13df" />
-  </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (NBAPlayerValue)" project-jdk-type="Python SDK" />
 </project>
