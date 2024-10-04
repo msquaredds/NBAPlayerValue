@@ -84,6 +84,8 @@ def main():
     ######################################################################
     team_box_score_data = pd.read_excel("NBAPlayerValueData.xlsx",
                                         "TeamBoxScores")
+    # make sure all data is numeric
+    team_box_score_data = pd.to_numeric(team_box_score_data, errors="coerce")
     with game_value_cols[1]:
         with st.expander("Team Box Score Data"):
             st.dataframe(team_box_score_data)
