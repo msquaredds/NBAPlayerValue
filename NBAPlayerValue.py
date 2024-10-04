@@ -1,3 +1,5 @@
+from selectors import SelectSelector
+
 import pandas as pd
 import streamlit as st
 
@@ -84,6 +86,14 @@ def main():
     ######################################################################
     team_box_score_data = pd.read_excel("NBAPlayerValueData.xlsx",
                                         "TeamBoxScores")
+    # rename columns to replace % with _P and / with _ and any other
+    # specifics
+    team_box_score_data.columns = [col.replace("%", "_P").replace("/", "_")
+                                   for col in team_box_score_data.columns]
+    team_box_score_data.columns = [
+        col if col not in gv.COL_NAME_REPLACEMENTS.keys()
+        else gv.COL_NAME_REPLACEMENTS[col]
+        for col in team_box_score_data.columns]
     with game_value_cols[1]:
         with st.expander("Team Box Score Data"):
             st.dataframe(team_box_score_data)
