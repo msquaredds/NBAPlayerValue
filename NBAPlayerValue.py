@@ -76,7 +76,7 @@ def main():
                      "from this data exercise since we rely on their stats.")
 
     team_box_score_data = pd.read_excel("NBAPlayerValueData.xlsx",
-                                        "TeamBoxScores", header=None)
+                                        "TeamBoxScores")
     with game_value_cols[1]:
         with st.expander("Team Box Score Data"):
             st.dataframe(team_box_score_data)
