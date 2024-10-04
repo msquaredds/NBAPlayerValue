@@ -97,6 +97,8 @@ def main():
     for col in independent_data.columns:
         # add a constant
         X = sm.add_constant(independent_data[col])
+        st.write(dependent_data)
+        st.write(X)
         model = sm.OLS(dependent_data, X).fit()
         # use a robust covariance matrix
         model = model.get_robustcov_results()
