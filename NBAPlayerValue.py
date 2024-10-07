@@ -134,7 +134,7 @@ def main():
                      "expected to contribute 1.3 points to the point "
                      "differential. This is the coefficient of the "
                      "independent variable in the regression model.",
-                format="%.2f"),
+                format="%.0f"),
                 "Correlation": st.column_config.NumberColumn(
                     width='small', format="%.2f%%"),
                 "P-Value": st.column_config.NumberColumn(
@@ -155,7 +155,7 @@ def main():
                          "18%, then 18% of the point differential can be "
                          "explained by the number of assists. This is the "
                          "square of the correlation.",
-                    format="%.2f%%")})
+                    format="%.0f%%")})
 
 
 
