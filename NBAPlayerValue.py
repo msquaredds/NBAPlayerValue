@@ -1,5 +1,6 @@
 import math
 import pandas as pd
+import plotly.express as px
 import streamlit as st
 
 import GlobalVariables as gv
@@ -125,9 +126,9 @@ def main():
     results = {k: results[k] for k in sorted(results)}
     results_df = pd.DataFrame(results).T
 
-    ind_stats_header_cols = st.columns([.05, .25, .20, .05, .20, .05, .20])
-    with ind_stats_header_cols[1]:
+    with game_value_cols[1]:
         st.markdown("#### Individual Stat Analysis")
+    ind_stats_header_cols = st.columns([.05, .25, .20, .05, .20, .05, .20])
     with ind_stats_header_cols[2]:
         st.markdown("##### Sensitivity")
     with ind_stats_header_cols[4]:
@@ -175,6 +176,7 @@ def main():
         fig = go.Figure(go.Bar(x=results_df["Sensitivity"],
                                y=results_df.index,
                                orientation='h',
+                               marker_color=px.colors.qualitative.Plotly[0],
                                yhoverformat=".2f"))
         fig.update_layout(font_size=14,
                           height=585,
@@ -186,6 +188,7 @@ def main():
         fig = go.Figure(go.Bar(x=results_df["Correlation"],
                                y=results_df.index,
                                orientation='h',
+                               marker_color=px.colors.qualitative.Plotly[1],
                                yhoverformat=".0f",))
         fig.update_layout(font_size=14,
                           height=585,
