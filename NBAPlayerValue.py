@@ -176,8 +176,8 @@ def main():
         fig = go.Figure(go.Bar(x=results_df["Sensitivity"],
                                y=results_df.index,
                                orientation='h',
-                               marker_color=px.colors.qualitative.Plotly[0],
-                               yhoverformat=".2f"))
+                               marker_color="blue",
+                               xhoverformat=".2f"))
         fig.update_layout(font_size=14,
                           height=585,
                           margin=dict(l=40, r=0, t=0, b=20))
@@ -188,8 +188,8 @@ def main():
         fig = go.Figure(go.Bar(x=results_df["Correlation"],
                                y=results_df.index,
                                orientation='h',
-                               marker_color=px.colors.qualitative.Plotly[1],
-                               yhoverformat=".0f",))
+                               marker_color="green",
+                               xhoverformat=".0f",))
         fig.update_layout(font_size=14,
                           height=585,
                           margin=dict(l=40, r=0, t=0, b=20),
