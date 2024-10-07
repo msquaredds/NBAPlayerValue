@@ -10,7 +10,8 @@ from statsmodels import api as sm
 
 
 def main():
-    st.set_page_config(page_title="NBA Player Value", layout="wide")
+    st.set_page_config(page_title="NBA Player Value", layout="wide",
+                       page_icon="🏀")
 
     title_cols = st.columns(3)
     with title_cols[1]:
