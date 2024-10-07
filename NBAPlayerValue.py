@@ -4,6 +4,7 @@ import streamlit as st
 
 import GlobalVariables as gv
 
+from plotly import graph_objects as go
 from statsmodels import api as sm
 
 
@@ -122,8 +123,14 @@ def main():
 
     results_df = pd.DataFrame(results).T
 
-    with game_value_cols[1]:
+    individual_stats_header_cols = st.columns([.05, .25, .70])
+    with individual_stats_header_cols[1]:
         st.markdown("#### Individual Stat Analysis")
+    with individual_stats_header_cols[2]:
+        st.markdown("#### Sensitivity")
+
+    individual_stats_cols = st.columns([.05, .25, .70])
+    with individual_stats_cols[1]:
         st.dataframe(
             results_df,
             column_config={
@@ -157,7 +164,11 @@ def main():
                          "explained by the number of assists. This is the "
                          "square of the correlation.",
                     format="%.0f%%")})
-
+    with individual_stats_cols[2]:
+        fig = go.Figure(go.Bar(x=results_df.index,
+                               y=results_df["Sensitivity"]))
+        fig.update_layout(font_size=16)
+        st.plotly_chart(fig, theme=None)
 
 
 
