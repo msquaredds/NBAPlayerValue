@@ -130,7 +130,7 @@ def main():
         st.markdown("#### Individual Stat Analysis")
     with ind_stats_header_cols[2]:
         st.markdown("##### Sensitivity")
-    with ind_stats_header_cols[3]:
+    with ind_stats_header_cols[4]:
         st.markdown("##### Correlation")
 
     individual_stats_cols = st.columns([.05, .25, .20, .05, .20, .05, .20])
@@ -190,7 +190,7 @@ def main():
         fig.update_layout(font_size=14,
                           height=585,
                           margin=dict(l=40, r=0, t=0, b=20),
-                          yaxis_ticksuffix="%")
+                          xaxis_ticksuffix="%")
         st.plotly_chart(fig, theme=None)
 
 
