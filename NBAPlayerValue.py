@@ -169,13 +169,13 @@ def main():
                     format="%.0f%%")})
     with individual_stats_cols[2]:
         # sort the columns so the highest sensitivity is first
-        results_df = results_df.sort_values("Sensitivity", ascending=False)
+        results_df = results_df.sort_values("Sensitivity", ascending=True)
         fig = go.Figure(go.Bar(x=results_df["Sensitivity"],
                                y=results_df.index,
                                orientation='h'))
         fig.update_layout(font_size=14,
-                          height=570,
-                          margin=dict(l=20, r=0, t=0, b=20))
+                          height=580,
+                          margin=dict(l=30, r=0, t=0, b=20))
         st.plotly_chart(fig, theme=None)
 
 
