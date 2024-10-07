@@ -135,7 +135,7 @@ def main():
     with individual_stats_cols[1]:
         st.dataframe(
             results_df,
-            height=560,
+            height=565,
             column_config={
                 "Sensitivity": st.column_config.NumberColumn(
                     width='small',
@@ -174,8 +174,8 @@ def main():
                                y=results_df.index,
                                orientation='h'))
         fig.update_layout(font_size=14,
-                          height=580,
-                          margin=dict(l=30, r=0, t=0, b=20))
+                          height=585,
+                          margin=dict(l=40, r=0, t=0, b=20))
         st.plotly_chart(fig, theme=None)
 
 
