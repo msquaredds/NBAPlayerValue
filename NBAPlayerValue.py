@@ -40,7 +40,7 @@ def main():
     ######################################################################
     # Team Stats - Intro
     ######################################################################
-    st.subheader("Game Value")
+    st.subheader("Game Value ⭐")
     game_value_cols = st.columns([.05, .95])
     with game_value_cols[1]:
         st.write("To determine Game Value, we ultimately want to know how "
