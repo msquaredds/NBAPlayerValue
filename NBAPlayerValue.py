@@ -139,7 +139,7 @@ def main():
                      "independent variable in the regression model.",
                 format="%.2f"),
                 "Correlation": st.column_config.NumberColumn(
-                    width='medium', format="%.2f %"),
+                    width='medium', format="%.2f%%"),
                 "P-Value": st.column_config.NumberColumn(
                     width='medium',
                     help="The probability that the coefficient is actually "
@@ -158,7 +158,7 @@ def main():
                          "18%, then 18% of the point differential can be "
                          "explained by the number of assists. This is the "
                          "square of the correlation.",
-                    format="%.2f %")})
+                    format="%.2f%%")})
 
 
 
