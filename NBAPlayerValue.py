@@ -123,11 +123,11 @@ def main():
     results_df = pd.DataFrame(results).T
 
     with game_value_cols[1]:
-        st.markdown("### Individual Stat Analysis")
+        st.markdown("#### Individual Stat Analysis")
         st.dataframe(
             results_df,
             column_config={"Sensitivity": st.column_config.NumberColumn(
-                width='medium',
+                width='small',
                 help="The change in point differential for a one unit "
                      "change in the stat. For example, if assist sensitivity "
                      "is 1.3, then for every assist a player has, they are "
@@ -136,9 +136,9 @@ def main():
                      "independent variable in the regression model.",
                 format="%.2f"),
                 "Correlation": st.column_config.NumberColumn(
-                    width='medium', format="%.2f%%"),
+                    width='small', format="%.2f%%"),
                 "P-Value": st.column_config.NumberColumn(
-                    width='medium',
+                    width='small',
                     help="The probability that the coefficient is actually "
                          "zero, in which case the variable is not "
                          "significant. So a lower value is better here. If "
@@ -148,7 +148,7 @@ def main():
                          "variable matters.",
                     format="%.4f"),
                 "R-Squared": st.column_config.NumberColumn(
-                    width='medium',
+                    width='small',
                     help="The percentage of the variance in the dependent "
                          "variable that is explained by the independent "
                          "variable. For example, if the assist r-squared is "
