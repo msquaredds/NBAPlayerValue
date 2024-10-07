@@ -81,7 +81,7 @@ def main():
                      "from this data exercise since we rely on their stats.")
 
     ######################################################################
-    # Team Stats - Analysis
+    # Team Stats - Individual Analysis
     ######################################################################
     team_box_score_data = pd.read_excel("NBAPlayerValueData.xlsx",
                                         "TeamBoxScores")
@@ -89,15 +89,11 @@ def main():
         with st.expander("Team Box Score Data"):
             st.dataframe(team_box_score_data)
 
-    # rename columns to replace % with _P and / with _ and any other
-    # specifics
+    # rename columns to be more readable
     team_box_score_data.columns = [
         col if col not in gv.COL_NAME_REPLACEMENTS.keys()
         else gv.COL_NAME_REPLACEMENTS[col]
         for col in team_box_score_data.columns]
-    # team_box_score_data.columns = [col.replace("%", "_P").replace("/", "_")
-    #                                for col in team_box_score_data.columns]
-
     # narrow down the data to just the point differential and the columns
     # that we want to test
     dependent_data = team_box_score_data[gv.DEPENDENT_BOX_COL]
@@ -143,7 +139,7 @@ def main():
                      "independent variable in the regression model.",
                 format="%.2f"),
                 "Correlation": st.column_config.NumberColumn(
-                    width='medium', format="%.2f%"),
+                    width='medium', format="%.2f %"),
                 "P-Value": st.column_config.NumberColumn(
                     width='medium',
                     help="The probability that the coefficient is actually "
@@ -162,7 +158,7 @@ def main():
                          "18%, then 18% of the point differential can be "
                          "explained by the number of assists. This is the "
                          "square of the correlation.",
-                    format="%.2f%")})
+                    format="%.2f %")})
 
 
 
