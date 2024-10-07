@@ -121,6 +121,8 @@ def main():
             "R-Squared": model.rsquared * 100
         }
 
+    # sort columns alphabetically
+    results = {k: results[k] for k in sorted(results)}
     results_df = pd.DataFrame(results).T
 
     individual_stats_header_cols = st.columns([.05, .25, .20, .20, .20, .10])
@@ -133,7 +135,7 @@ def main():
     with individual_stats_cols[1]:
         st.dataframe(
             results_df,
-            height=600,
+            height=550,
             column_config={
                 "Sensitivity": st.column_config.NumberColumn(
                     width='small',
@@ -169,7 +171,8 @@ def main():
         fig = go.Figure(go.Bar(x=results_df["Sensitivity"],
                                y=results_df.index,
                                orientation='h'))
-        fig.update_layout(height=600,
+        fig.update_layout(font_size=14,
+                          height=550,
                           margin=dict(l=50, r=0, t=0, b=50))
         st.plotly_chart(fig, theme=None)
 
