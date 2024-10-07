@@ -124,9 +124,6 @@ def main():
 
     with game_value_cols[1]:
         st.markdown("### Individual Stat Analysis")
-
-    individual_stat_cols = st.columns([.05, .25, .45, .25])
-    with individual_stat_cols[1]:
         st.dataframe(
             results_df,
             column_config={"Sensitivity": st.column_config.NumberColumn(
