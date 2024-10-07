@@ -168,6 +168,7 @@ def main():
         fig = go.Figure(go.Bar(x=results_df["Sensitivity"],
                                y=results_df.index,
                                orientation='h'))
+        fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
         st.plotly_chart(fig, theme=None)
 
 
