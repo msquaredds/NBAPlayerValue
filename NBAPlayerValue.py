@@ -123,13 +123,13 @@ def main():
 
     results_df = pd.DataFrame(results).T
 
-    individual_stats_header_cols = st.columns([.05, .25, .70])
+    individual_stats_header_cols = st.columns([.05, .25, .15])
     with individual_stats_header_cols[1]:
         st.markdown("#### Individual Stat Analysis")
     with individual_stats_header_cols[2]:
         st.markdown("#### Sensitivity")
 
-    individual_stats_cols = st.columns([.05, .25, .70])
+    individual_stats_cols = st.columns([.05, .25, .15])
     with individual_stats_cols[1]:
         st.dataframe(
             results_df,
