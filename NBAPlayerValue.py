@@ -165,8 +165,8 @@ def main():
                          "square of the correlation.",
                     format="%.0f%%")})
     with individual_stats_cols[2]:
-        fig = go.Figure(go.Bar(x=results_df.index,
-                               y=results_df["Sensitivity"],
+        fig = go.Figure(go.Bar(x=results_df["Sensitivity"],
+                               y=results_df.index,
                                orientation='h'))
         fig.update_layout(font_size=16)
         st.plotly_chart(fig, theme=None)
