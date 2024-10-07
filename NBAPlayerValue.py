@@ -15,7 +15,7 @@ def main():
 
     title_cols = st.columns(3)
     with title_cols[1]:
-        title_writing = "NBA Player Value"
+        title_writing = "🏀 NBA Player Value 🏀"
         title_format = (
             f'<p style="text-align: center; font-size: 40px; '
             f'font-weight: bold;">{title_writing}</p>')
