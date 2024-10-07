@@ -126,17 +126,18 @@ def main():
         st.markdown("#### Individual Stat Analysis")
         st.dataframe(
             results_df,
-            column_config={"Sensitivity": st.column_config.NumberColumn(
-                width='small',
-                help="The change in point differential for a one unit "
-                     "change in the stat. For example, if assist sensitivity "
-                     "is 1.3, then for every assist a player has, they are "
-                     "expected to contribute 1.3 points to the point "
-                     "differential. This is the coefficient of the "
-                     "independent variable in the regression model.",
-                format="%.0f"),
+            column_config={
+                "Sensitivity": st.column_config.NumberColumn(
+                    width='small',
+                    help="The change in point differential for a one unit "
+                         "change in the stat. For example, if assist sensitivity "
+                         "is 1.3, then for every assist a player has, they are "
+                         "expected to contribute 1.3 points to the point "
+                         "differential. This is the coefficient of the "
+                         "independent variable in the regression model.",
+                    format="%.2f"),
                 "Correlation": st.column_config.NumberColumn(
-                    width='small', format="%.2f%%"),
+                    width='small', format="%.0f%%"),
                 "P-Value": st.column_config.NumberColumn(
                     width='small',
                     help="The probability that the coefficient is actually "
