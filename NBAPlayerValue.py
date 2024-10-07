@@ -129,7 +129,9 @@ def main():
     with individual_stats_header_cols[1]:
         st.markdown("#### Individual Stat Analysis")
     with individual_stats_header_cols[2]:
-        st.markdown("#### Sensitivity")
+        st.markdown("##### Sensitivity")
+    with individual_stats_header_cols[3]:
+        st.markdown("##### Correlation")
 
     individual_stats_cols = st.columns([.05, .25, .20, .20, .20, .10])
     with individual_stats_cols[1]:
@@ -171,6 +173,16 @@ def main():
         # sort the columns so the highest sensitivity is first
         results_df = results_df.sort_values("Sensitivity", ascending=True)
         fig = go.Figure(go.Bar(x=results_df["Sensitivity"],
+                               y=results_df.index,
+                               orientation='h'))
+        fig.update_layout(font_size=14,
+                          height=585,
+                          margin=dict(l=40, r=0, t=0, b=20))
+        st.plotly_chart(fig, theme=None)
+    with individual_stats_cols[3]:
+        # sort the columns so the highest correlation is first
+        results_df = results_df.sort_values("Correlation", ascending=True)
+        fig = go.Figure(go.Bar(x=results_df["Correlation"],
                                y=results_df.index,
                                orientation='h'))
         fig.update_layout(font_size=14,
