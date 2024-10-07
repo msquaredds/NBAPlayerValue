@@ -133,7 +133,7 @@ def main():
     with individual_stats_cols[1]:
         st.dataframe(
             results_df,
-            height=500,
+            height=600,
             column_config={
                 "Sensitivity": st.column_config.NumberColumn(
                     width='small',
@@ -169,7 +169,8 @@ def main():
         fig = go.Figure(go.Bar(x=results_df["Sensitivity"],
                                y=results_df.index,
                                orientation='h'))
-        fig.update_layout(margin=dict(l=50, r=0, t=0, b=50))
+        fig.update_layout(height=600,
+                          margin=dict(l=50, r=0, t=0, b=50))
         st.plotly_chart(fig, theme=None)
 
 
