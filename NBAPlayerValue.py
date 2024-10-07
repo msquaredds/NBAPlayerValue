@@ -125,15 +125,15 @@ def main():
     results = {k: results[k] for k in sorted(results)}
     results_df = pd.DataFrame(results).T
 
-    individual_stats_header_cols = st.columns([.05, .25, .20, .20, .20, .10])
-    with individual_stats_header_cols[1]:
+    ind_stats_header_cols = st.columns([.05, .25, .20, .05, .20, .05, .20])
+    with ind_stats_header_cols[1]:
         st.markdown("#### Individual Stat Analysis")
-    with individual_stats_header_cols[2]:
+    with ind_stats_header_cols[2]:
         st.markdown("##### Sensitivity")
-    with individual_stats_header_cols[3]:
+    with ind_stats_header_cols[3]:
         st.markdown("##### Correlation")
 
-    individual_stats_cols = st.columns([.05, .25, .20, .20, .20, .10])
+    individual_stats_cols = st.columns([.05, .25, .20, .05, .20, .05, .20])
     with individual_stats_cols[1]:
         st.dataframe(
             results_df,
@@ -177,9 +177,10 @@ def main():
                                orientation='h'))
         fig.update_layout(font_size=14,
                           height=585,
-                          margin=dict(l=40, r=0, t=0, b=20))
+                          margin=dict(l=40, r=0, t=0, b=20),
+                          yhoverformat=".2f")
         st.plotly_chart(fig, theme=None)
-    with individual_stats_cols[3]:
+    with individual_stats_cols[4]:
         # sort the columns so the highest correlation is first
         results_df = results_df.sort_values("Correlation", ascending=True)
         fig = go.Figure(go.Bar(x=results_df["Correlation"],
@@ -187,7 +188,9 @@ def main():
                                orientation='h'))
         fig.update_layout(font_size=14,
                           height=585,
-                          margin=dict(l=40, r=0, t=0, b=20))
+                          margin=dict(l=40, r=0, t=0, b=20),
+                          yhoverformat=".0f",
+                          yaxis_ticksuffix="%")
         st.plotly_chart(fig, theme=None)
 
 
