@@ -135,7 +135,7 @@ def main():
     with individual_stats_cols[1]:
         st.dataframe(
             results_df,
-            height=550,
+            height=560,
             column_config={
                 "Sensitivity": st.column_config.NumberColumn(
                     width='small',
@@ -168,12 +168,14 @@ def main():
                          "square of the correlation.",
                     format="%.0f%%")})
     with individual_stats_cols[2]:
+        # sort the columns so the highest sensitivity is first
+        results_df = results_df.sort_values("Sensitivity", ascending=False)
         fig = go.Figure(go.Bar(x=results_df["Sensitivity"],
                                y=results_df.index,
                                orientation='h'))
         fig.update_layout(font_size=14,
-                          height=550,
-                          margin=dict(l=50, r=0, t=0, b=50))
+                          height=570,
+                          margin=dict(l=20, r=0, t=0, b=20))
         st.plotly_chart(fig, theme=None)
 
 
