@@ -133,6 +133,8 @@ def main():
         st.markdown("##### Sensitivity")
     with ind_stats_header_cols[4]:
         st.markdown("##### Correlation")
+    with ind_stats_header_cols[6]:
+        st.markdown("##### P-Value")
 
     individual_stats_cols = st.columns([.05, .25, .20, .05, .20, .05, .20])
     with individual_stats_cols[1]:
@@ -195,7 +197,18 @@ def main():
                           margin=dict(l=40, r=0, t=0, b=20),
                           xaxis_ticksuffix="%")
         st.plotly_chart(fig, theme=None)
-
+    with individual_stats_cols[6]:
+        # sort the columns so the highest p-value is first
+        results_df = results_df.sort_values("P-Value", ascending=False)
+        fig = go.Figure(go.Bar(x=results_df["P-Value"],
+                               y=results_df.index,
+                               orientation='h',
+                               marker_color="lightcoral",
+                               xhoverformat=".4f",))
+        fig.update_layout(font_size=14,
+                          height=585,
+                          margin=dict(l=40, r=0, t=0, b=20))
+        st.plotly_chart(fig, theme=None)
 
 
 if __name__ == '__main__':
