@@ -1,5 +1,4 @@
-from selectors import SelectSelector
-
+import math
 import pandas as pd
 import streamlit as st
 
@@ -96,8 +95,8 @@ def main():
         col if col not in gv.COL_NAME_REPLACEMENTS.keys()
         else gv.COL_NAME_REPLACEMENTS[col]
         for col in team_box_score_data.columns]
-    team_box_score_data.columns = [col.replace("%", "_P").replace("/", "_")
-                                   for col in team_box_score_data.columns]
+    # team_box_score_data.columns = [col.replace("%", "_P").replace("/", "_")
+    #                                for col in team_box_score_data.columns]
 
     # narrow down the data to just the point differential and the columns
     # that we want to test
@@ -119,15 +118,52 @@ def main():
         # use a robust covariance matrix
         model = model.get_robustcov_results()
         results[col] = {
-            "intercept": model.params[0],
-            "coefficient": model.params[1],
-            "p-value": model.pvalues[1],
-            "r-squared": model.rsquared
+            "Sensitivity": model.params[1],
+            "Correlation": math.sqrt(model.rsquared) * 100,
+            "P-Value": model.pvalues[1],
+            "R-Squared": model.rsquared * 100
         }
 
     results_df = pd.DataFrame(results).T
+
     with game_value_cols[1]:
-        st.dataframe(results_df)
+        st.markdown("### Individual Stat Analysis")
+
+    individual_stat_cols = st.columns([.05, .25, .45, .25])
+    with individual_stat_cols[1]:
+        st.dataframe(
+            results_df,
+            column_config={"Sensitivity": st.column_config.NumberColumn(
+                width='medium',
+                help="The change in point differential for a one unit "
+                     "change in the stat. For example, if assist sensitivity "
+                     "is 1.3, then for every assist a player has, they are "
+                     "expected to contribute 1.3 points to the point "
+                     "differential. This is the coefficient of the "
+                     "independent variable in the regression model.",
+                format="%.2f"),
+                "Correlation": st.column_config.NumberColumn(
+                    width='medium', format="%.2f%"),
+                "P-Value": st.column_config.NumberColumn(
+                    width='medium',
+                    help="The probability that the coefficient is actually "
+                         "zero, in which case the variable is not "
+                         "significant. So a lower value is better here. If "
+                         "this is less than 0.05, we can be 95% confident "
+                         "that the coefficient is not zero. In statistics, "
+                         "this is the standard for determining whether a "
+                         "variable matters.",
+                    format="%.4f"),
+                "R-Squared": st.column_config.NumberColumn(
+                    width='medium',
+                    help="The percentage of the variance in the dependent "
+                         "variable that is explained by the independent "
+                         "variable. For example, if the assist r-squared is "
+                         "18%, then 18% of the point differential can be "
+                         "explained by the number of assists. This is the "
+                         "square of the correlation.",
+                    format="%.2f%")})
+
 
 
 
