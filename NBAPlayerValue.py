@@ -128,7 +128,7 @@ def main():
     results_df = pd.DataFrame(results).T
 
     with game_value_cols[1]:
-        st.markdown("#### Individual Stat Analysis")
+        st.markdown("#### Single Stat Analysis")
     ind_stats_header_cols = st.columns([.05, .25, .20, .05, .20, .05, .20])
     with ind_stats_header_cols[2]:
         st.markdown("##### Sensitivity")
