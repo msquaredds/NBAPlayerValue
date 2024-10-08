@@ -111,11 +111,37 @@ def main():
     # we want to keep the intercept, coefficient, p-value and r-squared
     results = {}
     for col in independent_data.columns:
+        st.write(col)
         # add a constant
         X = sm.add_constant(independent_data[col])
-        model = sm.OLS(dependent_data, X).fit()
-        # use a robust covariance matrix
-        model = model.get_robustcov_results()
+        st.write("X", X)
+        # we want to remove any influential points, so we re-run the model
+        # until there are none
+        re_run = True
+        while re_run:
+            model = sm.OLS(dependent_data, X).fit()
+            # use a robust covariance matrix
+            model = model.get_robustcov_results()
+            # check for influential points
+            infl = model.get_influence()
+            cooks_distance, cooks_p = infl.cooks_distance
+            st.write("cooks_distance", cooks_distance)
+            st.write("cooks_p", cooks_p)
+            # remove any influential points
+            if any(cooks_p < 0.05):
+                st.write("Removing influential points")
+                # find the most influential point for any points with a
+                # p-value less than 0.05
+                infl_points = [(d, i) for d, p, i in
+                               enumerate(zip(cooks_distance, cooks_p))
+                               if p < 0.05]
+                infl_points.sort(reverse=True)
+                X = X.drop(infl_points[0][1])
+                st.write("X", X)
+            else:
+                st.write("Done with influential points")
+                re_run = False
+
         results[col] = {
             "Sensitivity": model.params[1],
             "Correlation": math.sqrt(model.rsquared) * 100,
