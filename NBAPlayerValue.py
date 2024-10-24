@@ -267,6 +267,26 @@ def main():
     # show the results and covariance robust results
     st.write(regr_engine.res.summary())
 
+    # drop % stats since they could be skewed to players that don't play
+    independent_data = independent_data.drop(gv.PERCENTAGE_COLS, axis=1)
+
+    # define the regression analysis engine for all regressions here
+    regr_engine_no_perc = RegressionAnalysis(indep_in=independent_data,
+                                             depen_in=dependent_data,
+                                             vif_cutoff=gv.VIF_CUTOFF)
+
+    # run the regression
+    error_str = regr_engine_no_perc.ols_regression(
+        gv.MIN_OBSERVATION_MULTIPLIER)
+
+    # stop the program if the regression wasn't successful
+    if error_str is not None:
+        st.error(error_str)
+        st.stop()
+
+    # show the results and covariance robust results
+    st.write(regr_engine_no_perc.res.summary())
+
 
 if __name__ == '__main__':
     main()
