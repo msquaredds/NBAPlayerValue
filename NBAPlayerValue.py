@@ -1,12 +1,13 @@
 import math
 import pandas as pd
-import plotly.express as px
 import streamlit as st
 
 import GlobalVariables as gv
 
 from plotly import graph_objects as go
 from statsmodels import api as sm
+
+from RegressionAnalysis import RegressionAnalysis
 
 
 def main():
@@ -241,6 +242,30 @@ def main():
                  "the regression. We use the term senstivity here because it "
                  "is the change in point differential for a one unit change "
                  "in the stat and more intuitive than coefficient.")
+
+    ######################################################################
+    # Game Value - Multivariate Analysis
+    ######################################################################
+
+    multi_analysis_cols = st.columns([.05, .95])
+    with multi_analysis_cols[1]:
+        st.markdown("#### Multiple Stat Analysis")
+
+    # define the regression analysis engine for all regressions here
+    regr_engine = RegressionAnalysis(indep_in=independent_data,
+                                     depen_in=dependent_data,
+                                     vif_cutoff=gv.VIF_CUTOFF)
+
+    # run the regression
+    error_str = regr_engine.ols_regression(gv.MIN_OBSERVATION_MULTIPLIER)
+
+    # stop the program if the regression wasn't successful
+    if error_str is not None:
+        st.error(error_str)
+        st.stop()
+
+    # show the results and covariance robust results
+    st.write(regr_engine.res.summary())
 
 
 if __name__ == '__main__':
