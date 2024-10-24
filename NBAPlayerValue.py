@@ -84,7 +84,7 @@ def main():
                      "from this data exercise since we rely on their stats.")
 
     ######################################################################
-    # Team Stats - Individual Analysis
+    # Data Pull & Cleaning
     ######################################################################
     team_box_score_data = pd.read_excel("NBAPlayerValueData.xlsx",
                                         "TeamBoxScores")
@@ -107,6 +107,10 @@ def main():
         # replace any dash with zero
         independent_data[col] = independent_data[col].replace("-", 0)
         independent_data[col] = pd.to_numeric(independent_data[col])
+
+    ######################################################################
+    # Game Value - Individual Analysis
+    ######################################################################
 
     # we want to keep the intercept, coefficient, p-value and r-squared
     results = {}
@@ -229,6 +233,13 @@ def main():
                           height=585,
                           margin=dict(l=40, r=0, t=0, b=20))
         st.plotly_chart(fig, theme=None)
+
+    with game_value_cols[1]:
+        st.markdown("##### Notes:")
+        st.write("1. The sensitivity is the coefficient of the variable in "
+                 "the regression. We use the term senstivity here because it "
+                 "is the change in point differential for a one unit change "
+                 "in the stat and more intuitive than coefficient.")
 
 
 if __name__ == '__main__':
