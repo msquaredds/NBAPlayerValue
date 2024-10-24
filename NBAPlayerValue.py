@@ -236,7 +236,7 @@ def main():
 
     single_notes_cols = st.columns([.05, .95])
     with single_notes_cols[1]:
-        st.markdown("##### Notes:")
+        st.markdown("###### Notes:")
         st.write("1. The sensitivity is the coefficient of the variable in "
                  "the regression. We use the term senstivity here because it "
                  "is the change in point differential for a one unit change "
