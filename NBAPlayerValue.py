@@ -234,7 +234,8 @@ def main():
                           margin=dict(l=40, r=0, t=0, b=20))
         st.plotly_chart(fig, theme=None)
 
-    with game_value_cols[1]:
+    single_notes_cols = st.columns([.05, .95])
+    with single_notes_cols[1]:
         st.markdown("##### Notes:")
         st.write("1. The sensitivity is the coefficient of the variable in "
                  "the regression. We use the term senstivity here because it "
